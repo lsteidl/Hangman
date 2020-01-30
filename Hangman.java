@@ -3,10 +3,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.*;
 
 public class Hangman {
-    // Runs the tests for HW3
+    // Hangman game, takes user input regarding difficulty
     public static void main(final String[] args) {
         // prepare to read wordlist
         // choose random index 1-58109
@@ -26,7 +25,7 @@ public class Hangman {
                 count++;
             }
             choice = reader.nextLine();
-            System.out.println(choice);
+           // System.out.println(choice); // shows chosen word
             reader.close();
         } catch (FileNotFoundException e) {
             // display error
@@ -45,6 +44,7 @@ public class Hangman {
         // scanner for user input
         final Scanner input = new Scanner(System.in); // scanner for user input
         // set difficulty
+        System.out.println("...NEW GAME...");
         System.out.println("Difficulty level...");
         System.out.println("1) Easy");
         System.out.println("2) Medium");
