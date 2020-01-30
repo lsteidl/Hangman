@@ -3,6 +3,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+//   _______
+//  |     ||
+//  o     ||
+// -|-    ||     
+// / \    ||
+//        ||
+//_______||||
+//
 
 public class Hangman {
     // Hangman game, takes user input regarding difficulty
@@ -41,6 +49,7 @@ public class Hangman {
         int max_wrong = 0; // set by user difficulty input
         boolean solved = false; // game state
         char letter = 1; // holds user guess
+        int difficulty = 0; // game mode
 
         // scanner for user input
         final Scanner input = new Scanner(System.in); // scanner for user input
@@ -50,15 +59,18 @@ public class Hangman {
         System.out.println("1) Easy");
         System.out.println("2) Medium");
         System.out.println("3) Hard");
+        System.out.println("4) Classic Hangman");
         System.out.print("Decision...");
 
         // get user difficulty input
         if (input.hasNextInt()) {
-            int difficulty = input.nextInt();
+            difficulty = input.nextInt();
             // set difficulty by assigning int value
             if (difficulty == 1) {
                 max_wrong = 10;
             } else if (difficulty == 2) {
+                max_wrong = 5;
+            } else if(difficulty == 4) {
                 max_wrong = 5;
             } else {
                 max_wrong = 3;
@@ -74,6 +86,9 @@ public class Hangman {
             hiddenWord[i] = '*';
         }
         while (!solved) { // loop until game state = solved
+            if(difficulty == 4){ // if visual game mode
+              printMan(wrong_guess);  
+            }
             printWord(hiddenWord); // display word to be guessed
             if (total_guess > 0) {
                 printIncorrect(wrong);
@@ -105,6 +120,9 @@ public class Hangman {
                         wrong.add(String.valueOf(letter));
                         wrong_guess++;
                         System.out.println("Wrong!");
+                        if(difficulty == 4){ // if visual game mode
+                            printMan(wrong_guess);  
+                          }
                     }
 
                 }
@@ -160,6 +178,55 @@ public class Hangman {
         }
         System.out.println();
 
+    }
+    static void printMan(int count){
+        String man[] = new String[6]; // word with hidden letters
+        // unchanging parts of man
+        man[0] = "   _______";
+        man[1] = "  |     ||";
+        man[5] = "_______||||";
+        if(count == 0){
+            man[2] = "        ||";
+            man[3] = "        ||";
+            man[4] = "        ||";
+        }
+        else if(count == 1){
+            man[2] = "  o     ||";
+            man[3] = "        ||";
+            man[4] = "        ||";
+        }
+        else if(count == 2){
+            man[2] = "  o     ||";
+            man[3] = " -      ||";
+            man[4] = "        ||";
+        }
+        else if(count == 3){
+            man[2] = "  o     ||";
+            man[3] = " -|     ||";
+            man[4] = "        ||";
+        }
+        else if(count == 4){
+            man[2] = "  o     ||";
+            man[3] = " -|-    ||";
+            man[4] = "        ||";
+        }
+        else if(count == 5){
+            man[2] = "  o     ||";
+            man[3] = " -|-    ||";
+            man[4] = " /      ||";
+        }
+        else if(count == 6){
+        man[2] = "  o     ||";
+        man[3] = " -|-    ||";
+        man[4] = " / \\    ||";
+        
+        }
+        
+        
+        for(int i = 0; i < man.length; i++){
+            System.out.println(man[i]);
+        }
+        System.out.println();
     }
 
 }
