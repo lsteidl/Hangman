@@ -25,7 +25,7 @@ public class Hangman {
                 count++;
             }
             choice = reader.nextLine();
-           // System.out.println(choice); // shows chosen word
+            // System.out.println(choice); // shows chosen word
             reader.close();
         } catch (FileNotFoundException e) {
             // display error
@@ -51,7 +51,7 @@ public class Hangman {
         System.out.println("2) Medium");
         System.out.println("3) Hard");
         System.out.print("Decision...");
-        
+
         // get user difficulty input
         if (input.hasNextInt()) {
             int difficulty = input.nextInt();
@@ -116,15 +116,15 @@ public class Hangman {
                 break;
             }
         }
-        System.out.println(); 
-        printWord(hiddenWord); // display final state of hidden word 
+        System.out.println();
+        printWord(hiddenWord); // display final state of hidden word
         // check if game was won
         if (max_wrong < wrong_guess) {
             System.out.println("Too many errors - You Lose!");
             System.out.print("Solution is...");
             printAnswer(word);
             System.out.println();
-        } else { 
+        } else {
             System.out.println("Solved!");
             System.out.println();
         }
@@ -132,7 +132,7 @@ public class Hangman {
     }
 
     // displays plain text word to user
-    public static void printAnswer(char [] word){
+    public static void printAnswer(char[] word) {
         for (int i = 0; i < word.length; i++) {
             System.out.print(word[i]);
         }
