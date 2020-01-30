@@ -11,10 +11,12 @@ public class Hangman {
         // prepare to read wordlist
         // choose random index 1-58109
         double x = Math.random();
-        System.out.println(x);
         int index = (int) (x * 58109);
-        System.out.println(index);
         index--; // shift to 0 based indexing
+        // Testing...
+        // System.out.println(x);
+        // System.out.println(index);
+
         // creating File instance to reference text file
         File text = new File("wordlist.txt");
         Scanner reader;
@@ -35,25 +37,32 @@ public class Hangman {
             System.out.println("File not Found error");
             e.printStackTrace();
         }
+        // game set up
         List<String> wrong = new ArrayList<String>(); // maintain list of incorrect guesses
         // scanner for user input
         final Scanner input = new Scanner(System.in); // scanner for user input
         int length = choice.length();
         char[] word = choice.toCharArray(); // actual word
         char hiddenWord[] = new char[length]; // word with hidden letters
+        // fill each letter space with *
         for (int i = 0; i < length; i++) {
-            hiddenWord[i] = '*'; // fill each letter space with *
+            hiddenWord[i] = '*';
         }
         int count = 0; // track correct guesses
-        boolean solved = false;
+        int total_guesses = 0; // track total guesses
+        boolean solved = false; // game state
         char letter = 1; // holds user guess
-        while (!solved) { // loop until solved
+
+        while (!solved) { // loop until game state = solved
             printWord(hiddenWord); // display word to be guessed
-            printIncorrect(wrong);
+            if (total_guesses > 0) {
+                printIncorrect(wrong);
+            }
             System.out.print("Enter guess...");
             if (input.hasNext()) {
                 String guess = input.next(); // get input as string
                 letter = guess.charAt(0); // convert input to char
+                total_guesses++; // increment total guesses
                 System.out.println("You guessed " + letter);
                 // check previous guesses
                 if (wrong.contains(String.valueOf(letter))) {
