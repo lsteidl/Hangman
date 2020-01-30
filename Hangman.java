@@ -123,6 +123,7 @@ public class Hangman {
             System.out.println("Too many errors - You Lose!");
             System.out.print("Solution is...");
             printAnswer(word);
+            System.out.println();
         } else { 
             System.out.println("Solved!");
             System.out.println();
