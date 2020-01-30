@@ -13,17 +13,13 @@ public class Hangman {
         double x = Math.random();
         int index = (int) (x * 58109);
         index--; // shift to 0 based indexing
-        // Testing...
-        // System.out.println(x);
-        // System.out.println(index);
-
         // creating File instance to reference text file
         File text = new File("wordlist.txt");
-        Scanner reader;
-        String choice = "";
+        Scanner reader; // wordlist reader
+        String choice = ""; // chosen word
         // get chosen word from file
         try {
-            int count = 0;
+            int count = 0; // keep track of word index
             reader = new Scanner(text);
             while (reader.hasNextLine() && (count < index)) {
                 reader.nextLine();
@@ -39,8 +35,36 @@ public class Hangman {
         }
         // game set up
         List<String> wrong = new ArrayList<String>(); // maintain list of incorrect guesses
+        int correct_guess = 0; // track correct guesses
+        int total_guess = 0; // track total guesses
+        int wrong_guess = 0; // track wrong guesses
+        int max_wrong = 0; // set by user difficulty input
+        boolean solved = false; // game state
+        char letter = 1; // holds user guess
+
         // scanner for user input
         final Scanner input = new Scanner(System.in); // scanner for user input
+        // set difficulty
+        System.out.println("Difficulty level...");
+        System.out.println("1) Easy");
+        System.out.println("2) Medium");
+        System.out.println("3) Hard");
+        System.out.print("Decision...");
+        
+        // get user difficulty input
+        if (input.hasNextInt()) {
+            int difficulty = input.nextInt();
+            // set difficulty by assigning int value
+            if (difficulty == 1) {
+                max_wrong = 10;
+            } else if (difficulty == 2) {
+                max_wrong = 5;
+            } else {
+                max_wrong = 3;
+            }
+        }
+        System.out.println(); // spacing for easy viewing
+        // set up hidden and plain char arrays
         int length = choice.length();
         char[] word = choice.toCharArray(); // actual word
         char hiddenWord[] = new char[length]; // word with hidden letters
@@ -48,21 +72,16 @@ public class Hangman {
         for (int i = 0; i < length; i++) {
             hiddenWord[i] = '*';
         }
-        int count = 0; // track correct guesses
-        int total_guesses = 0; // track total guesses
-        boolean solved = false; // game state
-        char letter = 1; // holds user guess
-
         while (!solved) { // loop until game state = solved
             printWord(hiddenWord); // display word to be guessed
-            if (total_guesses > 0) {
+            if (total_guess > 0) {
                 printIncorrect(wrong);
             }
             System.out.print("Enter guess...");
             if (input.hasNext()) {
                 String guess = input.next(); // get input as string
                 letter = guess.charAt(0); // convert input to char
-                total_guesses++; // increment total guesses
+                total_guess++; // increment total guesses
                 System.out.println("You guessed " + letter);
                 // check previous guesses
                 if (wrong.contains(String.valueOf(letter))) {
@@ -73,7 +92,7 @@ public class Hangman {
                     for (int i = 0; i < hiddenWord.length; i++) {
                         if (word[i] == letter) { // search for guess in word
                             match = true;
-                            count++; // increment correct count
+                            correct_guess++; // increment correct count
                             hiddenWord[i] = letter; // update hidden word with correct guess
                         }
                     }
@@ -82,19 +101,28 @@ public class Hangman {
                         System.out.println("Correct!");
                     } else {
                         wrong.add(String.valueOf(letter));
+                        wrong_guess++;
                         System.out.println("Wrong!");
                     }
 
                 }
-                if (count == word.length) {
+                if (correct_guess == word.length) {
                     solved = true;
                 }
             }
+            if (max_wrong < wrong_guess) {
+                break;
+            }
         }
-        printWord(hiddenWord);
-        System.out.println("Solved!");
-        System.out.println();
-
+        System.out.println(); 
+        printWord(hiddenWord); // display final state of hidden word 
+        // check if game was won
+        if (max_wrong < wrong_guess) {
+            System.out.println("Too many errors - You Lose!");
+        } else { 
+            System.out.println("Solved!");
+            System.out.println();
+        }
         input.close();
     }
 
