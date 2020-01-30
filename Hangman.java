@@ -55,26 +55,31 @@ public class Hangman {
                 String guess = input.next(); // get input as string
                 letter = guess.charAt(0); // convert input to char
                 System.out.println("You guessed " + letter);
-                // check guess
-                boolean match = false;
-                for (int i = 0; i < hiddenWord.length; i++) {
-                    if (word[i] == letter) { // search for guess in word
-                        match = true;
-                        count++; // increment correct count
-                        hiddenWord[i] = letter; // update hidden word with correct guess
-                    }
-                }
-                // System.out.println("Count= " + count);
-                if (match) {
-                    System.out.println("Correct!");
+                // check previous guesses
+                if (wrong.contains(String.valueOf(letter))) {
+                    System.out.println("You guessed " + letter + " already! Try Again.");
                 } else {
-                    wrong.add(String.valueOf(letter));
-                    System.out.println("Wrong!");
-                }
+                    // check for match
+                    boolean match = false;
+                    for (int i = 0; i < hiddenWord.length; i++) {
+                        if (word[i] == letter) { // search for guess in word
+                            match = true;
+                            count++; // increment correct count
+                            hiddenWord[i] = letter; // update hidden word with correct guess
+                        }
+                    }
+                    // System.out.println("Count= " + count);
+                    if (match) {
+                        System.out.println("Correct!");
+                    } else {
+                        wrong.add(String.valueOf(letter));
+                        System.out.println("Wrong!");
+                    }
 
-            }
-            if (count == word.length) {
-                solved = true;
+                }
+                if (count == word.length) {
+                    solved = true;
+                }
             }
         }
         printWord(hiddenWord);
