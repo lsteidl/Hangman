@@ -34,6 +34,7 @@ public class Hangman {
         }
         // game set up
         List<String> wrong = new ArrayList<String>(); // maintain list of incorrect guesses
+        List<String> correct = new ArrayList<String>(); // maintain list of correct guesses
         int correct_guess = 0; // track correct guesses
         int total_guess = 0; // track total guesses
         int wrong_guess = 0; // track wrong guesses
@@ -83,8 +84,8 @@ public class Hangman {
                 letter = guess.charAt(0); // convert input to char
                 total_guess++; // increment total guesses
                 System.out.println("You guessed " + letter);
-                // check previous guesses
-                if (wrong.contains(String.valueOf(letter))) {
+                // check previous guesses, wrong and correct
+                if (wrong.contains(String.valueOf(letter)) || correct.contains(String.valueOf(letter))) {
                     System.out.println("You guessed " + letter + " already! Try Again.");
                 } else {
                     // check for match
@@ -96,8 +97,9 @@ public class Hangman {
                             hiddenWord[i] = letter; // update hidden word with correct guess
                         }
                     }
-                    // System.out.println("Count= " + count);
+                    // check if match or wrong guess
                     if (match) {
+                        correct.add(String.valueOf(letter));
                         System.out.println("Correct!");
                     } else {
                         wrong.add(String.valueOf(letter));
@@ -119,11 +121,20 @@ public class Hangman {
         // check if game was won
         if (max_wrong < wrong_guess) {
             System.out.println("Too many errors - You Lose!");
+            System.out.print("Solution is...");
+            printAnswer(word);
         } else { 
             System.out.println("Solved!");
             System.out.println();
         }
         input.close();
+    }
+
+    // displays plain text word to user
+    public static void printAnswer(char [] word){
+        for (int i = 0; i < word.length; i++) {
+            System.out.print(word[i]);
+        }
     }
 
     // displays hidden word to user
