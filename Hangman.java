@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,48 +35,45 @@ public class Hangman {
             System.out.println("File not Found error");
             e.printStackTrace();
         }
-
+        List<String> wrong = new ArrayList<String>(); // maintain list of incorrect guesses
         // scanner for user input
         final Scanner input = new Scanner(System.in); // scanner for user input
         int length = choice.length();
-        char[] word = choice.toCharArray();
-        // for(int i = 0; i < length; i++){
-        // System.out.println(word[i]);
-        // }
-        char hiddenWord[] = new char[length];
+        char[] word = choice.toCharArray(); // actual word
+        char hiddenWord[] = new char[length]; // word with hidden letters
         for (int i = 0; i < length; i++) {
-            hiddenWord[i] = '*';
-            // System.out.print(hiddenWord[i]);
+            hiddenWord[i] = '*'; // fill each letter space with *
         }
-        int count = 0;
+        int count = 0; // track correct guesses
         boolean solved = false;
-        while (!solved) {
-            printWord(hiddenWord);
+        char letter = 1; // holds user guess
+        while (!solved) { // loop until solved
+            printWord(hiddenWord); // display word to be guessed
+            printIncorrect(wrong);
             System.out.print("Enter guess...");
             if (input.hasNext()) {
                 String guess = input.next(); // get input as string
-                char letter = guess.charAt(0); // convert input to char
+                letter = guess.charAt(0); // convert input to char
                 System.out.println("You guessed " + letter);
-                // checkGuess(hiddenWord,word,letter);
                 // check guess
                 boolean match = false;
                 for (int i = 0; i < hiddenWord.length; i++) {
                     if (word[i] == letter) { // search for guess in word
                         match = true;
-                        count++; //increment correct count
+                        count++; // increment correct count
                         hiddenWord[i] = letter; // update hidden word with correct guess
                     }
                 }
-                //System.out.println("Count= " + count);
-                if(match){
+                // System.out.println("Count= " + count);
+                if (match) {
                     System.out.println("Correct!");
-                }
-                else{
+                } else {
+                    wrong.add(String.valueOf(letter));
                     System.out.println("Wrong!");
                 }
 
             }
-            if(count == word.length){
+            if (count == word.length) {
                 solved = true;
             }
         }
@@ -95,15 +94,18 @@ public class Hangman {
         System.out.println(); // spacing for easy reading
     }
 
-    public static boolean checkGuess(char[] hiddenWord, char[] word, char c) {
-        boolean match = false;
-        for (int i = 0; i < hiddenWord.length; i++) {
-            if (word[i] == c) {
-                match = true;
-                hiddenWord[i] = c;
+    // print past incorrect guesses
+    public static void printIncorrect(List<String> wrong) {
+        System.out.print("Previous: ");
+        for (int i = 0; i < wrong.size(); i++) {
+            System.out.print(wrong.get(i));
+
+            if (i != wrong.size() - 1) { // divide all guesses with commas except last
+                System.out.print(", ");
             }
         }
-        return match;
+        System.out.println();
+
     }
 
 }
