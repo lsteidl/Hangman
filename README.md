@@ -1,12 +1,6 @@
 # Hangman
 Simple hangman game. 
-   _______
-  |     ||
-  o     ||
- -|-    ||     
- / \    ||
-        ||
-_______||||
+
 4 Difficulty levels...
 1) Easy - Allows 10 wrong guesses
 2) Medium - Allows 5 wrong guesses
