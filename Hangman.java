@@ -70,7 +70,7 @@ public class Hangman {
                 max_wrong = 10;
             } else if (difficulty == 2) {
                 max_wrong = 5;
-            } else if(difficulty == 4) {
+            } else if (difficulty == 4) {
                 max_wrong = 5;
             } else {
                 max_wrong = 3;
@@ -86,8 +86,8 @@ public class Hangman {
             hiddenWord[i] = '*';
         }
         while (!solved) { // loop until game state = solved
-            if(difficulty == 4){ // if visual game mode
-              printMan(wrong_guess);  
+            if (difficulty == 4) { // if visual game mode
+                printMan(wrong_guess);
             }
             printWord(hiddenWord); // display word to be guessed
             if (total_guess > 0) {
@@ -120,9 +120,6 @@ public class Hangman {
                         wrong.add(String.valueOf(letter));
                         wrong_guess++;
                         System.out.println("Wrong!");
-                        if(difficulty == 4){ // if visual game mode
-                            printMan(wrong_guess);  
-                          }
                     }
 
                 }
@@ -139,6 +136,9 @@ public class Hangman {
         // check if game was won
         if (max_wrong < wrong_guess) {
             System.out.println("Too many errors - You Lose!");
+            if (difficulty == 4) { // if visual game mode
+                printMan(wrong_guess);
+            }
             System.out.print("Solution is...");
             printAnswer(word);
             System.out.println();
@@ -179,51 +179,45 @@ public class Hangman {
         System.out.println();
 
     }
-    static void printMan(int count){
+
+    static void printMan(int count) {
         String man[] = new String[6]; // word with hidden letters
         // unchanging parts of man
         man[0] = "   _______";
         man[1] = "  |     ||";
         man[5] = "_______||||";
-        if(count == 0){
+        if (count == 0) {
             man[2] = "        ||";
             man[3] = "        ||";
             man[4] = "        ||";
-        }
-        else if(count == 1){
+        } else if (count == 1) {
             man[2] = "  o     ||";
             man[3] = "        ||";
             man[4] = "        ||";
-        }
-        else if(count == 2){
+        } else if (count == 2) {
             man[2] = "  o     ||";
             man[3] = " -      ||";
             man[4] = "        ||";
-        }
-        else if(count == 3){
+        } else if (count == 3) {
             man[2] = "  o     ||";
             man[3] = " -|     ||";
             man[4] = "        ||";
-        }
-        else if(count == 4){
+        } else if (count == 4) {
             man[2] = "  o     ||";
             man[3] = " -|-    ||";
             man[4] = "        ||";
-        }
-        else if(count == 5){
+        } else if (count == 5) {
             man[2] = "  o     ||";
             man[3] = " -|-    ||";
             man[4] = " /      ||";
+        } else if (count == 6) {
+            man[2] = "  o     ||";
+            man[3] = " -|-    ||";
+            man[4] = " / \\    ||";
+
         }
-        else if(count == 6){
-        man[2] = "  o     ||";
-        man[3] = " -|-    ||";
-        man[4] = " / \\    ||";
-        
-        }
-        
-        
-        for(int i = 0; i < man.length; i++){
+
+        for (int i = 0; i < man.length; i++) {
             System.out.println(man[i]);
         }
         System.out.println();
