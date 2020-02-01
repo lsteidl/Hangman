@@ -2,7 +2,11 @@
 Simple hangman game. 
 Randomly selects word from wordlist file.
 
-![alt text](https://github.com/lsteidl/Hangman/blob/master/Screen%20Shot%202020-02-01%20at%203.50.25%20PM.jpg)
+![alt text](https://github.com/lsteidl/Hangman/blob/master/Screen%20Shot%20-%20gameplay.jpg)
+![alt text](https://github.com/lsteidl/Hangman/blob/master/Screen%20Shot%20-%20losing%20game.jpg)
+
+![alt text](https://github.com/lsteidl/Hangman/blob/master/Screen%20Shot%20-%20menu.jpg)
+
 
 
 4 Difficulty levels...
