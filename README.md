@@ -1,6 +1,9 @@
 # Hangman
 Simple hangman game. 
 Randomly selects word from wordlist file.
+Displays incorrect guesses to user.
+Prevents user from making same guess twice.
+
 
 ![alt text](https://github.com/lsteidl/Hangman/blob/master/Screenshots/Screen%20Shot%20-%20gameplay.jpg)
 ![alt text](https://github.com/lsteidl/Hangman/blob/master/Screenshots/Screen%20Shot%20-%20losing%20game.jpg)
